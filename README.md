@@ -88,7 +88,7 @@ By default, the plugin is configured to work with the [`@gravity-ui/i18n`](./fra
 
 ### importResolver
 
-Type: [`ImportResolver`](./src/types.ts#7)
+Type: [`ImportResolver`](./src/types.ts#18)
 
 The function that processes imports and marks which of the imports should be considered as localization functions (subsequently, calls to the marked identifiers are processed by the replacer).
 
@@ -128,7 +128,7 @@ const importResolver = (source: string, exportName: string, _identifierName: str
 
 ### declarationResolver
 
-Type: [`DeclarationResolver`](./src/types.ts#19)
+Type: [`DeclarationResolver`](./src/types.ts#30)
 
 The function that processes variable declarations and marks which variables should be considered as localization functions (subsequently, calls to the marked identifiers are processed by the replacer function).
 
@@ -162,7 +162,7 @@ const declarationResolver = (declarator: VariableDeclarator, module: string) => 
 
 ### replacer
 
-Type: [`Replacer`](./src/types.ts#42)
+Type: [`Replacer`](./src/types.ts#55)
 
 A function that processes localization function calls and returns a replacement as a string.
 
@@ -244,6 +244,10 @@ To ensure proper functionality, it is always necessary to return a detailed form
 ### Gravity i18n
 
 Functions for handling localization function calls from the library [`@gravity-ui/i18n`](https://github.com/gravity-ui/i18n).
+
+The ready to use functions are located [`here`](./src/frameworks/gravity-i18n.ts).
+
+An example of the code that functions will work with:
 
 ```typescript
 // The importResolver only considers the default import at the path ui/utils/i18n.
