@@ -1,0 +1,15 @@
+{
+    "extends": "@gravity-ui/tsconfig",
+    "compilerOptions": {
+        "target": "ES2021",
+        "declaration": true,
+        "outDir": "build",
+        "module": "NodeNext",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "moduleResolution": "NodeNext",
+        "rootDirs": ["src"],
+        "baseUrl": "."
+    },
+    "include": ["src/**/*.ts"]
+}

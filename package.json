@@ -1,0 +1,70 @@
+{
+  "name": "@gravity-ui/webpack-i18n-assets-plugin",
+  "version": "0.0.0",
+  "description": "Localize your Webpack bundle with multiplication and inlining i18n texts",
+  "author": "Daniil Gaponov <dagaponov@yandex-team.ru>",
+  "license": "MIT",
+  "homepage": "https://github.com/gravity-ui/webpack-i18n-assets-plugin#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gravity-ui/webpack-i18n-assets-plugin.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gravity-ui/webpack-i18n-assets-plugin/issues"
+  },
+  "main": "./build/cjs/index.js",
+  "module": "./build/esm/index.js",
+  "typings": "./build/esm/index.d.ts",
+  "files": [
+    "build"
+  ],
+  "scripts": {
+    "build": "NODE_ENV=production app-builder build",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "tsx tests",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build",
+    "prepare": "husky"
+  },
+  "keywords": [
+    "i18n",
+    "webpack"
+  ],
+  "dependencies": {
+    "@ampproject/remapping": "^2.2.1",
+    "acorn": "^8.11.3",
+    "acorn-walk": "^8.3.2",
+    "astring": "^1.8.6",
+    "magic-string": "^0.30.5",
+    "webpack-assets-manifest": "^5.1.0",
+    "webpack-sources": "^2.2.0"
+  },
+  "peerDependencies": {
+    "webpack": "^5.0.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.4.0",
+    "@commitlint/config-conventional": "^19.2.2",
+    "@gravity-ui/app-builder": "^0.8.6",
+    "@gravity-ui/eslint-config": "^3.1.1",
+    "@gravity-ui/prettier-config": "^1.1.0",
+    "@gravity-ui/tsconfig": "^1.0.0",
+    "@types/webpack-assets-manifest": "^5.1.4",
+    "@types/webpack-sources": "^3.2.0",
+    "eslint": "^8.56.0",
+    "husky": "^9.1.4",
+    "lint-staged": "^15.2.9",
+    "manten": "^1.2.0",
+    "source-map": "^0.7.3",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3",
+    "webpack": "^5.90.0",
+    "webpack-test-utils": "^2.1.0"
+  },
+  "lint-staged": {
+    "*.{js,ts}": [
+      "eslint --fix --quiet"
+    ]
+  }
+}
