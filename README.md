@@ -1,49 +1,82 @@
-# webpack-i18n-assets-plugin
+# 🌍 webpack-i18n-assets-plugin
 
 A plugin for Webpack that replaces calls to localization functions (i18n) with target texts.
 
-## Features
+### Features
 
 - Inlines i18n texts into the bundle (while substituting parameters into the final string)
 - Generates assets for all locales in one build
 - The plugin works only for production builds!
 - Supports only literals as keys in the localization function argument (template strings and variables are not allowed)
 
-## How to use
+## 📝 How to use
 
 1. Install the package:
 
     ```sh
-    npm i --save-dev @gravity-ui/webpack-i18n-assets-plugin
+    npm i -D @gravity-ui/webpack-i18n-assets-plugin
     ```
 
 2. Connect the plugin to Webpack (example for `@gravity-ui/app-builder`):
+
+    Example for webpack config (`webpack.config.js`):
+
+    ```js
+    const {I18nAssetsPlugin} = require('@gravity-ui/webpack-i18n-assets-plugin');
+
+    // For example. Read all files with localized texts and store in this mapping
+    const locales = {
+        en: {},
+        ru: {},
+        tr: {},
+    };
+
+    module.exports = {
+        output: {
+            filename: '[name].[locale].js', // [locale] is required in filename
+        },
+
+        plugins: [
+            new I18nAssetsPlugin({
+                locales
+            })
+        ]
+    }
+    ```
+
+    Example if you want create assets manifests for each locale (`webpack.config.js`):
+
+    ```js
+    const {applyPluginToWebpackConfig} = require('@gravity-ui/webpack-i18n-assets-plugin');
+
+    const locales = {
+        en: {},
+        ru: {},
+        tr: {},
+    };
+
+    // Some exist webpack config
+    const webpackConfig = {
+        plugins: [ ... ],
+        ...
+    };
+
+    // When using applyPluginToWebpackConfig, the WebpackAssetsManifest plugin will also be connected,
+    // which will generate assets manifests for each locale.
+    module.exports = applyPluginToWebpackConfig(webpackConfig, {locales});
+    ```
+
+    Example if you use `@gravity-ui/app-builder`:
 
     ```typescript
     import type {ServiceConfig} from '@gravity-ui/app-builder';
     import {applyPluginToWebpackConfig, Options} from '@gravity-ui/webpack-i18n-assets-plugin';
 
-    // For example. Read all files with localized texts and store in mapping.
-    function getLocales(): Options['locales'] {
-        const I18N_FILES_PATH = path.join(__dirname, 'src', 'locales');
-
-        const files = fs
-            .readdirSync(I18N_FILES_PATH)
-            .filter((name) => name.endsWith('.json'));
-
-        const result: Record<string, Record<string, string>> = {};
-
-        files.forEach((name) => {
-            const locale = name.split('.')[0];
-            result[locale] = JSON.parse(
-                fs.readFileSync(path.join(I18N_FILES_PATH, name), 'utf-8'),
-            ) as Record<string, string>;
-        });
-
-        return result;
+    const locales = {
+        en: {},
+        ru: {},
+        tr: {},
     };
-
-    const locales = getLocales();
 
     // When using applyPluginToWebpackConfig, the WebpackAssetsManifest plugin will also be connected,
     // which will generate assets manifests for each locale.
@@ -82,7 +115,7 @@ A plugin for Webpack that replaces calls to localization functions (i18n) with t
     });
     ```
 
-## Settings
+## 🔧 Settings
 
 By default, the plugin is configured to work with the [`@gravity-ui/i18n`](./frameworks/gravity-i18n.ts) library, but you can customize the processing for any other i18n library.
 
@@ -305,3 +338,15 @@ The Replacer additionally performs the following:
         "other": "other_form {{count}}"
     }, getSomeCount())
     ```
+
+## ℹ️ FAQ
+
+### How does this compare to [webpack-localize-assets-plugin](https://github.com/privatenumber/webpack-localize-assets-plugin)?
+
+To implement this plugin, an idea from the webpack-localize-assets-plugins package was used (for which many thanks to the package creator!).
+
+The differences are as follows:
+
+- A more convenient API that allows you to work with any kind of internationalization functions (including namespaces-helpers like useTranslation from i18next, imported functions from other modules, etc.)
+- Correct generation of source maps relative to the source code
+- There is only support for webpack 5. Webpack 4 support has been removed.
