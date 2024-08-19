@@ -1,6 +1,6 @@
 {
   "name": "@gravity-ui/webpack-i18n-assets-plugin",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Localize your Webpack bundle with multiplication and inlining i18n texts",
   "author": "Daniil Gaponov <dagaponov@yandex-team.ru>",
   "license": "MIT",
