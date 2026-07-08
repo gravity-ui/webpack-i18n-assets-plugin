@@ -2,6 +2,8 @@
 
 A plugin for Webpack that replaces calls to localization functions (i18n) with target texts.
 
+check
+
 ### Features
 
 - Inlines i18n texts into the bundle (while substituting parameters into the final string)
