@@ -2,24 +2,22 @@
 
 A plugin for Webpack that replaces calls to localization functions (i18n) with target texts.
 
-check
-
-### Features
+## Features
 
 - Inlines i18n texts into the bundle (while substituting parameters into the final string)
 - Generates assets for all locales in one build
 - The plugin works only for production builds!
 - Supports only literals as keys in the localization function argument (template strings and variables are not allowed)
 
-## 📝 How to use
+## Installation
 
-1. Install the package:
+```sh
+npm i -D @gravity-ui/webpack-i18n-assets-plugin
+```
 
-    ```sh
-    npm i -D @gravity-ui/webpack-i18n-assets-plugin
-    ```
+## Usage
 
-2. Connect the plugin to Webpack (example for `@gravity-ui/app-builder`):
+1. Connect the plugin to Webpack (example for `@gravity-ui/app-builder`):
 
     Example for webpack config (`webpack.config.js`):
 
@@ -89,7 +87,7 @@ check
     }
     ```
 
-3. Configure dynamic statics from the asset manifest on the server (example with `@gravity-ui/app-layout`):
+2. Configure dynamic statics from the asset manifest on the server (example with `@gravity-ui/app-layout`):
 
     ```typescript
     import {createRenderFunction, createLayoutPlugin} from '@gravity-ui/app-layout';
@@ -117,11 +115,11 @@ check
     });
     ```
 
-## 🔧 Settings
+### Settings
 
 By default, the plugin is configured to work with the [`@gravity-ui/i18n`](./frameworks/gravity-i18n.ts) library, but you can customize the processing for any other i18n library.
 
-### importResolver
+#### importResolver
 
 Type: [`ImportResolver`](./src/types.ts#18)
 
@@ -161,7 +159,7 @@ const importResolver = (source: string, exportName: string, _identifierName: str
 
 ```
 
-### declarationResolver
+#### declarationResolver
 
 Type: [`DeclarationResolver`](./src/types.ts#30)
 
@@ -195,7 +193,7 @@ const declarationResolver = (declarator: VariableDeclarator, module: string) => 
 };
 ```
 
-### replacer
+#### replacer
 
 Type: [`Replacer`](./src/types.ts#55)
 
@@ -266,7 +264,7 @@ function replacer(
 };
 ```
 
-### collectUnusedKeys
+#### collectUnusedKeys
 
 Type: [`Boolean`] (default - false)
 
@@ -274,9 +272,9 @@ Enables the mode for collecting unused keys in the project. After building, it c
 
 To ensure proper functionality, it is always necessary to return a detailed format in the `Replacer` function. This is important because during replacement, there is a possibility of modifying automatically determined keys and keysets.
 
-## Frameworks settings
+### Frameworks settings
 
-### Gravity i18n
+#### Gravity i18n
 
 Functions for handling localization function calls from the library [`@gravity-ui/i18n`](https://github.com/gravity-ui/i18n).
 
